@@ -12,7 +12,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.4";
+    static final String VERSION = "Version 3.0.5";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final int COUNT_OF_BLINDS = 3;
 
@@ -35,7 +35,7 @@ public class Player {
                 if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
                 }
-                if (gameState.getCurrent_buy_in() - ourPreviousBet < COUNT_OF_BLINDS * gameState.getSmall_blind()) {
+                if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind()) {
                     return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                 } else {
                     return 0;
