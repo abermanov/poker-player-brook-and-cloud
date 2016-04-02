@@ -12,7 +12,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.6";
+    static final String VERSION = "Version 3.0.7";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final int COUNT_OF_BLINDS = 3;
 
@@ -32,6 +32,10 @@ public class Player {
         Integer rank = 0;
         switch (round) {
             case 0:
+                if (blef(gameState)) {
+                    return ourPlayer.getStack();
+                }
+
                 if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
                 }
@@ -68,5 +72,9 @@ public class Player {
 
 
     public static void showdown(JsonElement game) {
+    }
+
+    private static boolean blef(GameState gameState) {
+        return gameState.getSmall_blind() > 150;
     }
 }
