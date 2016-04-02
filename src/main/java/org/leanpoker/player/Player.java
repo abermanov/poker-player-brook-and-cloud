@@ -1,18 +1,64 @@
 package org.leanpoker.player;
 
+import java.io.InputStream;
+import java.net.URI;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Player {
 
-    static final String VERSION = "Version 1.0.2";
+    static final String VERSION = "Version 2.0.0";
+    private static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
         JsonObject requestAJsonObject = request.getAsJsonObject();
         int current_buy_in = requestAJsonObject.get("current_buy_in").getAsInt();
-        return current_buy_in;
+        JsonArray holeCards = getHoleCards(requestAJsonObject);
+        Integer rank = getRank(holeCards.getAsJsonArray());
+        if (rank > 0) {
+            return current_buy_in;
+        } else {
+            return 0;
+        }
     }
 
     public static void showdown(JsonElement game) {
+    }
+
+    static JsonArray getHoleCards(JsonObject request) {
+        JsonArray players = request.get("players").getAsJsonArray();
+        for (JsonElement player : players) {
+            if (player.getAsJsonObject().get("name").getAsString().equalsIgnoreCase(PLAYER_NAME)) {
+                JsonElement hole_cards = player.getAsJsonObject().get("hole_cards");
+                return hole_cards.getAsJsonArray();
+            }
+        }
+        return new JsonArray();
+    }
+
+    static Integer getRank(JsonArray holeCards) {
+        try {
+            URI uri = new URIBuilder("http://rainman.leanpoker.org/rank")
+                    .addParameter("cards", holeCards.toString()).build();
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(uri);
+            HttpResponse execute = client.execute(request);
+            InputStream content = execute.getEntity().getContent();
+            String s = IOUtils.toString(content);
+            JsonElement parse = new JsonParser().parse(s);
+            int rank = parse.getAsJsonObject().get("rank").getAsInt();
+            return rank;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

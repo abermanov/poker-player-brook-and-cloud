@@ -36,7 +36,6 @@ public class PlayerParseTest {
                     System.out.println(card.getSuit());
                 }
             }
-
         }
 
     }
