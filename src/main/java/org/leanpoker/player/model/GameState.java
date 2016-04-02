@@ -15,7 +15,7 @@ public class GameState {
     int orbits;
     int in_action;
     List<DeckPlayer> players;
-    List<Card> cards;
+    List<Card> community_cards;
 
     public String getTournament_id() {
         return tournament_id;
@@ -113,12 +113,12 @@ public class GameState {
         this.players = players;
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public List<Card> getCommunity_cards() {
+        return community_cards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void setCommunity_cards(List<Card> community_cards) {
+        this.community_cards = community_cards;
     }
 
     @Override
@@ -136,7 +136,7 @@ public class GameState {
                 ", orbits=" + orbits +
                 ", in_action=" + in_action +
                 ", players=" + players +
-                ", cards=" + cards +
+                ", community_cards=" + community_cards +
                 '}';
     }
 }
