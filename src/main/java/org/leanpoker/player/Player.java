@@ -12,7 +12,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.5";
+    static final String VERSION = "Version 3.0.6";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final int COUNT_OF_BLINDS = 3;
 
@@ -52,7 +52,7 @@ public class Player {
                 if (gameState.getCurrent_buy_in() - ourPreviousBet > 0) {
                     // we call if good cards or not big raise
                     if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind() ||
-                            rank > 1) {
+                            rank >= 1) {
                         return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                     }
                 } else {
