@@ -19,7 +19,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.0.3";
+    static final String VERSION = "Version 2.0.5";
     private static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
@@ -37,20 +37,27 @@ public class Player {
         }
         Integer rank = getRank(holeCards.getAsJsonArray());
         int round = gameState.getRound();
-        if (round == 0) {
-            if (rank == 1) {
-                return ourPlayer.getStack();
-            }
-        }
-        if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
-            return gameState.getCurrent_buy_in() - ourPreviousBet;
-        }
-        if (rank > 0) {
-            return current_buy_in - ourPreviousBet;
-        } else {
-            return 0;
+        int call = gameState.getCurrent_buy_in() - ourPreviousBet;
+        switch (round){
+            case 0:
+                if (rank == 1) {
+                    return ourPlayer.getStack();
+                }
+                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
+                    return call;
+                } else {
+                    return 0;
+                }
+            default:
+                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
+                    return call;
+                } else {
+                    return 0;
+                }
         }
     }
+
+
 
     public static void showdown(JsonElement game) {
     }

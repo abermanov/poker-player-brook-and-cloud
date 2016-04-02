@@ -20,7 +20,7 @@ public class PlayerParseTest {
 
         JsonElement jsonElement = new JsonParser().parse(inputStreamReader);
 
-        assertEquals(999, Player.betRequest(jsonElement));
+        assertEquals(0, Player.betRequest(jsonElement));
     }
 
     @Test
