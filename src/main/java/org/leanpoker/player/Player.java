@@ -65,7 +65,7 @@ public class Player {
                 if (gameState.getCurrent_buy_in() - ourPreviousBet > 0) {
                     // we call if good cards or not big raise
                     if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind() ||
-                            rank >= 1) {
+                            rank - 1 >= round) {
                         return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                     }
                 } else {
