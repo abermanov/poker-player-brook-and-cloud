@@ -39,19 +39,13 @@ public class Player {
                 } else {
                     return 0;
                 }
-            case 1:
+            default:
                 Collection<Card> allCards = new ArrayList<>(ourCards);
                 allCards.addAll(gameState.getCommunity_cards());
                 rank = PlayerTactic.getRank(allCards);
-                if (rank >= 2) {
+                if (rank > round) {
                     return ourPlayer.getStack();
                 }
-                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
-                    return call;
-                } else {
-                    return 0;
-                }
-            default:
                 if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
                     return call;
                 } else {
