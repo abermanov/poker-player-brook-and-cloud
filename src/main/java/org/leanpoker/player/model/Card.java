@@ -1,28 +1,26 @@
 package org.leanpoker.player.model;
 
-import org.leanpoker.player.Suit;
-
 /**
  * Created by adippel on 02.04.2016.
  */
 public class Card {
 
-    private int rank;
-    private Suit suit;
+    private String rank;
+    private String suit;
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
-    public Suit getSuit() {
+    public String getSuit() {
         return suit;
     }
 
-    public void setSuit(Suit suit) {
+    public void setSuit(String suit) {
         this.suit = suit;
     }
 }
