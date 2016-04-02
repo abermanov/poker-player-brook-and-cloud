@@ -12,8 +12,9 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.3";
+    static final String VERSION = "Version 3.0.4";
     public static final String PLAYER_NAME = "brook and cloud";
+    public static final int COUNT_OF_BLINDS = 3;
 
     public static int betRequest(JsonElement request) {
         GameState gameState = new Gson().fromJson(request, GameState.class);
@@ -34,7 +35,7 @@ public class Player {
                 if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
                 }
-                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
+                if (gameState.getCurrent_buy_in() - ourPreviousBet < COUNT_OF_BLINDS * gameState.getSmall_blind()) {
                     return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                 } else {
                     return 0;
@@ -50,14 +51,14 @@ public class Player {
                 // if someone made a raise
                 if (gameState.getCurrent_buy_in() - ourPreviousBet > 0) {
                     // we call if good cards or not big raise
-                    if (gameState.getCurrent_buy_in() - ourPreviousBet < 4 * gameState.getSmall_blind() ||
+                    if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind() ||
                             rank > 1) {
                         return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                     }
                 } else {
                     // nobody made a raise
                     if (rank > 1) {
-                        return (ourPlayer.getStack() > 4 * gameState.getSmall_blind()) ? 4 * gameState.getSmall_blind() : ourPlayer.getStack();
+                        return (ourPlayer.getStack() > COUNT_OF_BLINDS * gameState.getSmall_blind()) ? COUNT_OF_BLINDS * gameState.getSmall_blind() : ourPlayer.getStack();
                     }
                 }
                 return 0;
