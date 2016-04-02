@@ -19,7 +19,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.0.1";
+    static final String VERSION = "Version 2.0.2";
     private static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
@@ -28,12 +28,20 @@ public class Player {
         int current_buy_in = requestAJsonObject.get("current_buy_in").getAsInt();
         JsonArray holeCards = getHoleCards(requestAJsonObject);
         Integer ourPreviousBet = 0;
+        DeckPlayer ourPlayer = null;
         for (DeckPlayer deckPlayer : gameState.getPlayers()) {
             if (deckPlayer.getName().equalsIgnoreCase(PLAYER_NAME)) {
+                ourPlayer = deckPlayer;
                 ourPreviousBet = deckPlayer.getBet();
             }
         }
         Integer rank = getRank(holeCards.getAsJsonArray());
+        int round = gameState.getRound();
+        if (round == 0) {
+            if (rank == 1) {
+                return ourPlayer.getStack();
+            }
+        }
         if (rank > 0) {
             return current_buy_in - ourPreviousBet;
         } else {
