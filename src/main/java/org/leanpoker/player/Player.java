@@ -13,7 +13,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.1.0";
+    static final String VERSION = "Version 3.1.1";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final List<String> goodCards = Arrays.asList("Q", "K", "A");
     public static final int COUNT_OF_BLINDS = 2;
@@ -34,9 +34,6 @@ public class Player {
         Integer rank = 0;
         switch (round) {
             case 0:
-                if (blef(gameState)) {
-                    return ourPlayer.getStack();
-                }
 
                 if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
@@ -54,9 +51,8 @@ public class Player {
 
                 if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind()) {
                     return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
-                } else {
-                    return 0;
                 }
+                return 0;
             default:
                 Collection<Card> allCards = new ArrayList<>(ourCards);
                 allCards.addAll(gameState.getCommunity_cards());
