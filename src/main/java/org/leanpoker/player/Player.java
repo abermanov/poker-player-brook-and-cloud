@@ -1,6 +1,7 @@
 package org.leanpoker.player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,9 +13,10 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.7";
+    static final String VERSION = "Version 3.0.8";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final int COUNT_OF_BLINDS = 3;
+    public static final List<String> goodCards = Arrays.asList("Q", "K", "A");
 
     public static int betRequest(JsonElement request) {
         GameState gameState = new Gson().fromJson(request, GameState.class);
@@ -39,6 +41,11 @@ public class Player {
                 if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
                 }
+
+                if (ourCards.stream().allMatch(goodCards::contains)) {
+                    return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
+                }
+
                 if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind()) {
                     return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                 } else {
