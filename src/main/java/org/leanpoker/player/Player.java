@@ -3,6 +3,7 @@ package org.leanpoker.player;
 import java.io.InputStream;
 import java.net.URI;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,19 +14,28 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.leanpoker.player.model.DeckPlayer;
+import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.0.0";
+    static final String VERSION = "Version 2.0.1";
     private static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
+        GameState gameState = new Gson().fromJson(request, GameState.class);
         JsonObject requestAJsonObject = request.getAsJsonObject();
         int current_buy_in = requestAJsonObject.get("current_buy_in").getAsInt();
         JsonArray holeCards = getHoleCards(requestAJsonObject);
+        Integer ourPreviousBet = 0;
+        for (DeckPlayer deckPlayer : gameState.getPlayers()) {
+            if (deckPlayer.getName().equalsIgnoreCase(PLAYER_NAME)) {
+                ourPreviousBet = deckPlayer.getBet();
+            }
+        }
         Integer rank = getRank(holeCards.getAsJsonArray());
         if (rank > 0) {
-            return current_buy_in;
+            return current_buy_in - ourPreviousBet;
         } else {
             return 0;
         }
