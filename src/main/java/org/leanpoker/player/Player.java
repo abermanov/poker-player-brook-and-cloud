@@ -19,7 +19,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.0.2";
+    static final String VERSION = "Version 2.0.3";
     private static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
@@ -41,6 +41,9 @@ public class Player {
             if (rank == 1) {
                 return ourPlayer.getStack();
             }
+        }
+        if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
+            return gameState.getCurrent_buy_in() - ourPreviousBet;
         }
         if (rank > 0) {
             return current_buy_in - ourPreviousBet;
