@@ -12,7 +12,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.0.2";
+    static final String VERSION = "Version 3.0.3";
     public static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
@@ -35,7 +35,7 @@ public class Player {
                     return ourPlayer.getStack();
                 }
                 if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
-                    return (ourPlayer.getStack() > call) ? ourPlayer.getStack() : call;
+                    return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                 } else {
                     return 0;
                 }
@@ -52,12 +52,12 @@ public class Player {
                     // we call if good cards or not big raise
                     if (gameState.getCurrent_buy_in() - ourPreviousBet < 4 * gameState.getSmall_blind() ||
                             rank > 1) {
-                        return (ourPlayer.getStack() > call) ? ourPlayer.getStack() : call;
+                        return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                     }
                 } else {
                     // nobody made a raise
                     if (rank > 1) {
-                        return (ourPlayer.getStack() > 4 * gameState.getSmall_blind()) ? ourPlayer.getStack() : 4 * gameState.getSmall_blind();
+                        return (ourPlayer.getStack() > 4 * gameState.getSmall_blind()) ? 4 * gameState.getSmall_blind() : ourPlayer.getStack();
                     }
                 }
                 return 0;
