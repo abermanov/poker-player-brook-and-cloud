@@ -1,0 +1,86 @@
+{
+  "tournament_id": "56fbda9a6609e30003000067",
+  "game_id": "56ff8c26178d3d000300011e",
+  "round": 1,
+  "players": [
+    {
+      "name": "Brook and cloud",
+      "stack": 1000,
+      "status": "active",
+      "bet": 0,
+      "hole_cards": [
+        {
+          "rank": "10",
+          "suit": "hearts"
+        },
+        {
+          "rank": "10",
+          "suit": "clubs"
+        }
+      ],
+      "version": "Version 2.0.5",
+      "id": 0
+    },
+    {
+      "name": "Unbot",
+      "stack": 1000,
+      "status": "active",
+      "bet": 100,
+      "hole_cards": [
+        {
+          "rank": "3",
+          "suit": "spades"
+        }
+      ],
+      "version": "Unbot V18 Kostya",
+      "id": 1
+    },
+    {
+      "name": "RedPanda",
+      "stack": 1000,
+      "status": "active",
+      "bet": 0,
+      "hole_cards": [
+        {
+          "rank": "J",
+          "suit": "diamonds"
+        }
+      ],
+      "version": "Princess Bubblegum 1.1",
+      "id": 2
+    },
+    {
+      "name": "Giuseppe Pockeronni",
+      "stack": 1000,
+      "status": "active",
+      "bet": 0,
+      "hole_cards": [
+        {
+          "rank": "3",
+          "suit": "diamonds"
+        }
+      ],
+      "version": "Breaking bad",
+      "id": 3
+    }
+  ],
+  "small_blind": 10,
+  "orbits": 0,
+  "dealer": 3,
+  "community_cards": [
+    {
+      "rank": "10",
+      "suit": "spades"
+    },
+    {
+      "rank": "A",
+      "suit": "hearts"
+    },
+    {
+      "rank": "6",
+      "suit": "clubs"
+    }
+  ],
+  "current_buy_in": 0,
+  "pot": 0
+}

@@ -2,6 +2,7 @@ package org.leanpoker.player;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -11,12 +12,12 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.1.0";
+    static final String VERSION = "Version 3.0.0";
     public static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
         GameState gameState = new Gson().fromJson(request, GameState.class);
-        Collection<Card> ourCards = PlayerTactic.getOurCards(gameState.getPlayers());
+        List<Card> ourCards = PlayerTactic.getOurCards(gameState.getPlayers());
         Integer ourPreviousBet = 0;
         DeckPlayer ourPlayer = null;
         for (DeckPlayer deckPlayer : gameState.getPlayers()) {
@@ -30,8 +31,7 @@ public class Player {
         Integer rank = 0;
         switch (round){
             case 0:
-                rank = PlayerTactic.getRank(ourCards);
-                if (rank == 1) {
+                if (ourCards.get(0).getRank().equalsIgnoreCase(ourCards.get(1).getRank())) {
                     return ourPlayer.getStack();
                 }
                 if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
@@ -43,10 +43,12 @@ public class Player {
                 Collection<Card> allCards = new ArrayList<>(ourCards);
                 allCards.addAll(gameState.getCommunity_cards());
                 rank = PlayerTactic.getRank(allCards);
-                if (rank > round) {
+                if (rank - 1 > round) {
                     return ourPlayer.getStack();
                 }
-                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind()) {
+                if (gameState.getCurrent_buy_in() - ourPreviousBet < 6 * gameState.getSmall_blind() ||
+                        rank - 2 > round
+                        ) {
                     return call;
                 } else {
                     return 0;

@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -20,7 +21,7 @@ import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.DeckPlayer;
 
 public class PlayerTactic {
-    static Collection<Card> getOurCards(Collection<DeckPlayer> deckPlayers) {
+    static List<Card> getOurCards(Collection<DeckPlayer> deckPlayers) {
         for (DeckPlayer deckPlayer : deckPlayers) {
             if (deckPlayer.getName().equalsIgnoreCase(Player.PLAYER_NAME)) {
                 return deckPlayer.getHole_cards();
