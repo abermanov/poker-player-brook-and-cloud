@@ -11,7 +11,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 2.0.6";
+    static final String VERSION = "Version 2.1.0";
     public static final String PLAYER_NAME = "brook and cloud";
 
     public static int betRequest(JsonElement request) {
