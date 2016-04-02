@@ -42,6 +42,16 @@ public class Player {
                     return ourPlayer.getStack();
                 }
 
+                boolean badCards = false;
+                for (Card ourCard : ourCards) {
+                    if (!goodCards.contains(ourCard)) {
+                        badCards = true;
+                    }
+                }
+                if (!badCards) {
+                    return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
+                }
+
                 if (gameState.getCurrent_buy_in() - ourPreviousBet <= COUNT_OF_BLINDS * gameState.getSmall_blind()) {
                     return (ourPlayer.getStack() > call) ? call : ourPlayer.getStack();
                 } else {
