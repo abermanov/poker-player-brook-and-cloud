@@ -15,8 +15,8 @@ public class Player {
 
     static final String VERSION = "Version 3.0.8";
     public static final String PLAYER_NAME = "brook and cloud";
-    public static final int COUNT_OF_BLINDS = 3;
     public static final List<String> goodCards = Arrays.asList("Q", "K", "A");
+    public static final int COUNT_OF_BLINDS = 2;
 
     public static int betRequest(JsonElement request) {
         GameState gameState = new Gson().fromJson(request, GameState.class);
@@ -82,6 +82,6 @@ public class Player {
     }
 
     private static boolean blef(GameState gameState) {
-        return gameState.getSmall_blind() > 150;
+        return gameState.getSmall_blind() >= 80;
     }
 }
