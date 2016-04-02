@@ -13,7 +13,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.1.4";
+    static final String VERSION = "Version 3.2.0";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final List<String> goodCards = Arrays.asList("Q", "K", "A");
     public static final int COUNT_OF_BLINDS = 3;
@@ -32,7 +32,7 @@ public class Player {
         int round = gameState.getRound();
         int call = gameState.getCurrent_buy_in() - ourPreviousBet;
         Integer rank = 0;
-        switch (round) {
+        switch (gameState.getCommunity_cards().size()) {
             case 0:
 
                 if (blef(gameState)) {
