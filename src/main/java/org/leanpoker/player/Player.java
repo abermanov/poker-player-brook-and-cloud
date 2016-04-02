@@ -13,7 +13,7 @@ import org.leanpoker.player.model.GameState;
 
 public class Player {
 
-    static final String VERSION = "Version 3.1.1";
+    static final String VERSION = "Version 3.1.2";
     public static final String PLAYER_NAME = "brook and cloud";
     public static final List<String> goodCards = Arrays.asList("Q", "K", "A");
     public static final int COUNT_OF_BLINDS = 2;
@@ -41,7 +41,7 @@ public class Player {
 
                 boolean badCards = false;
                 for (Card ourCard : ourCards) {
-                    if (!goodCards.contains(ourCard)) {
+                    if (!goodCards.contains(ourCard.getRank())) {
                         badCards = true;
                     }
                 }
